@@ -12,7 +12,6 @@ use EntityManagerCreator;
 use TodoApp\interfaces\ICrud;
 
 class Database implements ICrud {
-    protected $link;
 
     public static function save ($document) {
         $entityManager = EntityManagerCreator::getEntityManager();
