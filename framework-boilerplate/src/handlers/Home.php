@@ -11,7 +11,7 @@ namespace TodoApp\handlers;
 use TodoApp\config\TwigC;
 use TodoApp\interfaces\IHandler;
 
-class Home implements IHandler {
+class Home extends Handler implements IHandler {
 
     public function render() {
         return TwigC::$twig->render('index', array('name' => 'Fabien'));
