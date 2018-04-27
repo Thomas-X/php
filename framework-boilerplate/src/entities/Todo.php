@@ -30,6 +30,7 @@ class Todo {
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'isFinished' => $this->isFinished,
         ];
     }
 
