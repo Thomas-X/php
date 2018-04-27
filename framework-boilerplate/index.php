@@ -10,39 +10,61 @@ require 'bootstrap.php';
 use TodoApp\classes\Router;
 use TodoApp\handlers\Home;
 use TodoApp\handlers\NotFound;
-use TodoApp\handlers\SomeApiEndpoint;
+use TodoApp\handlers\Todos;
+use TodoApp\entities\Todo;
 
 $routes = [
     'home' => [
         'url' => '/',
         'handler' => new Home(),
+        'type' => null,
+        'entity' => null,
+        'method' => 'GET',
     ],
-    'someapiendpoint' => [
-        'url' => '/api/endpoint',
-        'handler' => new SomeApiEndpoint(),
+    'getAllTodos' => [
+        'url' => '/api/getAllTodos',
+        'handler' => new Todos(),
+        'type' => 'index',
+        'entity' => Todo::class,
+        'method' => 'GET',
+    ],
+    'createTodo' => [
+        'url' => '/api/createTodo',
+        'handler' => new Todos(),
+        'type' => 'create',
+        'entity' => Todo::class,
+        'method' => 'POST',
+    ],
+    'deleteTodo' => [
+        'url' => '/api/deleteTodo',
+        'handler' => new Todos(),
+        'type' => 'delete',
+        'entity' => Todo::class,
+        'method' => 'POST',
+    ],
+    'updateTodo' => [
+        'url' => '/api/updateTodo',
+        'handler' => new Todos('update'),
+        'type' => 'update',
+        'entity' => Todo::class,
+        'method' => 'POST',
     ],
     'notfound' => [
         'url' => '*',
         'handler' => new NotFound(),
+        'method' => 'GET',
     ]
 ];
 
 $router = new Router($routes);
 $renderedData = $router->renderPage();
 
-
 function output($data) {
-    $preHTMl = file_get_contents('html/pre.html');
-    $postHTML = file_get_contents('html/post.html');
-    echo $preHTMl . $data . $postHTML;
+    //    $preHTMl = file_get_contents('html/pre.html');
+    //    $postHTML = file_get_contents('html/post.html');
+    //    echo $preHTMl . $data . $postHTML;
+    echo $data;
 }
 
-if (is_array($renderedData)) {
-    if ($renderedData['raw'] === true) {
-        output($renderedData['data']);
-        return;
-    }
-};
-
-// Render HTML which we should return.
+// Render HTML/JSON/whatever which we should return.
 output($renderedData);

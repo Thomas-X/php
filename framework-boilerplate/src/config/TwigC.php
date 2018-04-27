@@ -15,4 +15,5 @@ class TwigC {
 }
 TwigC::setStatics(new ArrayLoader(array(
     'index' => 'Hello {{ name }}!',
+    'error' => '<pre>{{ error }}</pre>'
 )));

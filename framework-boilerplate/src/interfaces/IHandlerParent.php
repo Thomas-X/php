@@ -2,5 +2,5 @@
 
 namespace TodoApp\interfaces;
 
-interface ICrud {
+interface IHandlerParent {
 }

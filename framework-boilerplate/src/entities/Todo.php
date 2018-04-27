@@ -6,7 +6,7 @@
  * Time: 2:13 PM
  */
 
-namespace TodoApp\Entities;
+namespace TodoApp\entities;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Id;
@@ -17,16 +17,52 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="todo")
+ * @Entity(repositoryClass="TodoRepository")
+ * @Table(name="todo")
  */
 class Todo {
+
+    public function set($data) {
+        $this->setName($data['name']);
+        $this->setIsFinished(false);
+    }
+    public function get() {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+        ];
+    }
+
     /**
      * @Id
      * @GeneratedValue(strategy="AUTO")
      * @Column(type="integer")
      */
     protected $id;
+
+    /**
+     * @Column(type="string")
+     */
+    protected $name;
+
+    /**
+     * @Column(type="boolean")
+     */
+    protected $isFinished;
+
+    /**
+     * @return mixed
+     */
+    public function getisFinished() {
+        return $this->isFinished;
+    }
+
+    /**
+     * @param mixed $isFinished
+     */
+    public function setIsFinished($isFinished) {
+        $this->isFinished = $isFinished;
+    }
 
     /**
      * @return mixed
@@ -55,8 +91,5 @@ class Todo {
     public function setName($name) {
         $this->name = $name;
     }
-    /**
-     * @Column(type="string")
-     */
-    protected $name;
+
 }

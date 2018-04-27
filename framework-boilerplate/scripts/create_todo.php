@@ -1,14 +1,14 @@
 <?php
 // create_product.php <name>
 
-require '../bootstrap.php';
+require __DIR__ . '/../bootstrap.php';
 
-use TodoApp\Entities\Todo;
+use TodoApp\entities\Todo;
 
 $todoName = $argv[1];
 
 $todo = new Todo();
-//$todo->setIsFinished(false);
+$todo->setIsFinished(false);
 $todo->setName($todoName);
 
 $entityManager = EntityManagerCreator::getEntityManager();
