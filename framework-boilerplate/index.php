@@ -44,7 +44,7 @@ $routes = [
     ],
     'updateTodo' => [
         'url' => '/api/updateTodo',
-        'handler' => new Todos('update'),
+        'handler' => new Todos(),
         'type' => 'update',
         'entity' => Todo::class,
         'method' => 'POST',
