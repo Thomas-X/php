@@ -1,0 +1,11 @@
+<?php
+
+namespace TodoApp\interfaces;
+
+interface IHandler {
+
+    /**
+     * @return string | [ 'data' => 'some html or whatever', 'raw' => true ]
+     */
+    public function render();
+}
