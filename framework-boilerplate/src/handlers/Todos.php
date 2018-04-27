@@ -35,6 +35,9 @@ class Todos extends Handler implements IHandler {
     }
 
     private static function generateSet($val, $field, $hasNext = false, $noStrings = false) {
+        if(!$val) {
+            return $str = '';
+        }
         if ($hasNext) {
             if (!$noStrings) {
                 $str = (string)$val ? "t." . $field . " = '" . $val . "'" : '';
