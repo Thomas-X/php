@@ -11,7 +11,7 @@ class EntityManagerCreator {
     private static function createEntityManager() {
         // Create a simple "default" Doctrine ORM configuration for Annotations
         $isDevMode = true;
-        $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__ . "/src/entities"), $isDevMode);
+        $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__ . "/src/Entities"), $isDevMode, null, null, true);
         // or if you prefer yaml or XML
         //$config = Setup::createXMLMetadataConfiguration(array(__DIR__."/config/xml"), $isDevMode);
         //$config = Setup::createYAMLMetadataConfiguration(array(__DIR__."/config/yaml"), $isDevMode);
@@ -19,10 +19,12 @@ class EntityManagerCreator {
         // database configuration parameters
         $conn = array(
             'driver' => 'pdo_mysql',
-            'host' => '127.0.0.1',
+            'host' => 'localhost',
             'dbname' => 'mydb',
             'user' => 'root',
-            'password' => ''
+            'password' => 'root',
+            'unix_socket' => '/Applications/MAMP/tmp/mysql/mysql.sock',
+            'server_version' => '5.6.38',
         );
 
         // obtaining the entity manager

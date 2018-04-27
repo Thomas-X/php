@@ -1,12 +1,11 @@
 {
   "autoload": {
-    "psr-4": {
+    "psr-0": {
       "TodoApp\\": "src"
     }
   },
   "require": {
     "twig/twig": "^2.0",
     "doctrine/orm": "^2.6"
-
   }
 }

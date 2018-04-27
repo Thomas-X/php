@@ -6,24 +6,41 @@
  * Time: 2:13 PM
  */
 
-namespace TodoApp\entities;
+namespace TodoApp\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\GeneratedValue;
 
 
 /**
- * @Entity(repositoryClass="TodoRepository")
+ * @ORM\Entity
  * @ORM\Table(name="todo")
  */
 class Todo {
-
-    /** @Id @Column(type="integer") @GeneratedValue **/
+    /**
+     * @Id
+     * @GeneratedValue(strategy="AUTO")
+     * @Column(type="integer")
+     */
     protected $id;
-    /** @Column(type="string") **/
-    protected $name;
+
+    /**
+     * @return mixed
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id) {
+        $this->id = $id;
+    }
 
     /**
      * @return mixed
@@ -38,4 +55,8 @@ class Todo {
     public function setName($name) {
         $this->name = $name;
     }
+    /**
+     * @Column(type="string")
+     */
+    protected $name;
 }

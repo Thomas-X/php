@@ -3,7 +3,7 @@
 
 require '../bootstrap.php';
 
-use TodoApp\entities\Todo;
+use TodoApp\Entities\Todo;
 
 $todoName = $argv[1];
 
