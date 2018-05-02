@@ -16,6 +16,10 @@ use TodoApp\util\json;
 use TodoApp\entities as ENTITIES;
 use TodoApp\util\Util;
 
+/**
+ * Class Handler
+ * @package TodoApp\handlers
+ */
 class Handler implements IHandlerParent {
 
     private $entity;
@@ -27,6 +31,11 @@ class Handler implements IHandlerParent {
         $this->entity = $entity;
     }
 
+    /**
+     * @param $params
+     *
+     * @return string
+     */
     public function create($params) {
         $document = new $this->entity();
 
@@ -37,9 +46,13 @@ class Handler implements IHandlerParent {
         return Util::toJSON($document->get());
     }
 
+    /**
+     * @return string
+     */
     public function index() {
         $em = EntityManagerCreator::getEntityManager();
         $qb = $em->createQueryBuilder();
+        $q = 0 / 0;
         $qb
             ->select('t')
             ->from(Todo::class, 't');

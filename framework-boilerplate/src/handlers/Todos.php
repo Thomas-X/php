@@ -13,13 +13,27 @@ use TodoApp\entities\Todo;
 use TodoApp\interfaces\IHandler;
 use TodoApp\util\Util;
 
+/**
+ * Class Todos
+ * @package TodoApp\handlers
+ */
 class Todos extends Handler implements IHandler {
     private $em;
 
+    /**
+     * @param $isSuccess
+     *
+     * @return string
+     */
     private static function returnStatus ($isSuccess) {
         return Util::toJSON([ 'success' => $isSuccess]);
     }
 
+    /**
+     * @param $dql
+     *
+     * @return string
+     */
     private function execQuery($dql) {
         $query = $this->em->createQuery($dql);
         $result = $query->getResult();
@@ -34,6 +48,14 @@ class Todos extends Handler implements IHandler {
         return Util::toJSON($result);
     }
 
+    /**
+     * @param      $val
+     * @param      $field
+     * @param bool $hasNext
+     * @param bool $noStrings
+     *
+     * @return string
+     */
     private static function generateSet($val, $field, $hasNext = false, $noStrings = false) {
         if(!$val) {
             return $str = '';
@@ -54,10 +76,18 @@ class Todos extends Handler implements IHandler {
         return (string)$val ? "t." . $field . " = '" . $val . "'" : '';
     }
 
+    /**
+     * Todos constructor.
+     */
     public function __construct() {
         $this->em = EntityManagerCreator::getEntityManager();
     }
 
+    /**
+     * @param $params
+     *
+     * @return string
+     */
     public function update($params) {
         if(!$params['id']) {
             return Todos::returnStatus(false);
@@ -73,11 +103,19 @@ class Todos extends Handler implements IHandler {
         return $this->execQuery($dql);
     }
 
+    /**
+     * @param $params
+     *
+     * @return string
+     */
     public function delete($params) {
         $dql = "DELETE FROM " . Todo::class . " t WHERE t.id = " . $params['id'];
         return $this->execQuery($dql);
     }
 
+    /**
+     * @return null
+     */
     public function render() {
         // This is not used anyway.
         return null;

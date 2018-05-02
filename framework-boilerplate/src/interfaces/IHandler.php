@@ -2,6 +2,10 @@
 
 namespace TodoApp\interfaces;
 
+/**
+ * Interface IHandler
+ * @package TodoApp\interfaces
+ */
 interface IHandler {
 
     /**

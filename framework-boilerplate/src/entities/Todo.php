@@ -22,10 +22,17 @@ use Doctrine\ORM\Mapping\GeneratedValue;
  */
 class Todo {
 
+    /**
+     * @param $data
+     */
     public function set($data) {
         $this->setName($data['name']);
         $this->setIsFinished(false);
     }
+
+    /**
+     * @return array
+     */
     public function get() {
         return [
             'id' => $this->id,

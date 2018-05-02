@@ -9,6 +9,10 @@
 namespace TodoApp\interfaces;
 
 
+/**
+ * Interface IRouter
+ * @package TodoApp\interfaces
+ */
 interface IRouter {
     public function renderPage();
 }

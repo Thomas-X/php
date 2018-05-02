@@ -12,13 +12,25 @@ use TodoApp\config\TwigC;
 use TodoApp\interfaces\IRouter;
 use TodoApp\util\Util;
 
+/**
+ * Class Router
+ * @package TodoApp\classes
+ */
 class Router implements IRouter {
     private $routes;
 
+    /**
+     * Router constructor.
+     *
+     * @param array $routes
+     */
     public function __construct(array $routes) {
         $this->routes = $routes;
     }
 
+    /**
+     * @return mixed
+     */
     public function renderPage() {
         $path = $_SERVER['REQUEST_URI'];
         $httpRequestType = $_SERVER['REQUEST_METHOD'];

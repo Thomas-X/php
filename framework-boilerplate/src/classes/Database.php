@@ -11,9 +11,16 @@ namespace TodoApp\classes;
 use EntityManagerCreator;
 use TodoApp\interfaces\ICrud;
 
+/**
+ * Class Database
+ * @package TodoApp\classes
+ */
 class Database implements ICrud {
     protected $link;
 
+    /**
+     * @param $document
+     */
     public static function save ($document) {
         $entityManager = EntityManagerCreator::getEntityManager();
 
