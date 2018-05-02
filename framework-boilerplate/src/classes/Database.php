@@ -16,7 +16,6 @@ use TodoApp\interfaces\ICrud;
  * @package TodoApp\classes
  */
 class Database implements ICrud {
-    protected $link;
 
     /**
      * @param $document
