@@ -19,6 +19,7 @@ class Lareact {
 		];
 	}
 
+	// converts arrays to objects, nested arrays to objects as well.
 	public static function toObject(array $array, $class = 'stdClass') {
 		$object = new $class;
 		foreach ($array as $key => $value) {
