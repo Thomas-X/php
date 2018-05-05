@@ -3,6 +3,8 @@ import Example from "../components/Example";
 import styled, {css, keyframes} from "styled-components";
 import logo from '../logo.svg';
 import { Container} from "../App";
+import DatepickerIdk from '../components/DatepickerIdk';
+
 
 const rotate360 = keyframes`
   from {
@@ -37,5 +39,8 @@ export default (props) => (
             To get started, edit <code>src/App.js</code> and save to reload.
         </Paragraph>
         <Example text={"Hi via props from Example component!"}/>
+        <DatepickerIdk/>
+        <br/>
+        <a href="/about">TO ABOUT</a>
     </Container>
 )

@@ -22,10 +22,12 @@ class Lareact {
 
 Route::get('/', function () {
     $hello = 'hello';
-    $world = 'world';
+    $world = 'worldddd';
     $params = compact('hello', 'world');
 
-    return view('welcome',
-        Lareact::sendParams($params, 'Home')
-    );
+    return view('welcome', Lareact::sendParams($params, 'Home'));
+});
+
+Route::get('/about', function () {
+    return view('welcome', Lareact::sendParams(['hello woooorld'], 'About'));
 });
