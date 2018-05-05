@@ -24,7 +24,7 @@ class Lareact {
 		foreach ($array as $key => $value) {
 			if (is_array($value)) {
 				// Convert the array to an object
-				$value = arr::to_object($value, $class);
+				$value = self::toObject($value, $class);
 			}
 			// Add the value to the object
 			$object->{$key} = $value;

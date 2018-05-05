@@ -1,18 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
-import {persistStore} from "redux-persist";
-import injectGlobalCss from "./injectGlobalCss";
-import { store } from './createStore';
+import app from './server';
+import http from 'http';
 
-// only show app when persisted
-persistStore(store, {}, () => {
-    injectGlobalCss();
-    ReactDOM.render(
-        <App/>,
-        document.getElementById('root'),
-    );
+const server = http.createServer(app);
+
+let currentApp = app;
+
+server.listen(process.env.PORT || 3000, error => {
+  if (error) {
+    console.log(error);
+  }
+
+  console.log('🚀 started');
 });
 
-registerServiceWorker();
+if (module.hot) {
+  console.log('✅  Server-side HMR Enabled!');
+
+  module.hot.accept('./server', () => {
+    console.log('🔁  HMR Reloading `./server`...');
+    server.removeListener('request', currentApp);
+    const newApp = require('./server').default;
+    server.on('request', newApp);
+    currentApp = newApp;
+  });
+}
