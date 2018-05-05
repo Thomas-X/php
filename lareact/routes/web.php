@@ -12,11 +12,39 @@
 */
 
 class Lareact {
-    public static function sendParams (array $params, string $route) {
+    public static function sendParams(array $params, string $route) {
         return [
             '_data' => $params,
             '_route' => $route,
         ];
+    }
+
+    // TODO Objectify data array for usage with JS
+    public static function createHtml(array $_data, string $_route) {
+        if (!$_data || !$_route) {
+            \Illuminate\Support\Facades\App::abort(500, 'LAREACT: Invalid data mapping to generate html. see createHtml function');
+        }
+
+        $dataJsonEncoded = json_encode($_data);
+        $routeJsonEncoded = json_encode($_route);
+
+        $root = "<div id='root'></div>";
+        $lareactScripts = "
+<script> 
+function getResult (data) {
+    var stringified = JSON.stringify(data);
+    return JSON.parse(stringified);
+}
+window.LAREACT_DATA = getResult($dataJsonEncoded);
+window.LAREACT_ROUTE = getResult($routeJsonEncoded);
+</script>
+            ";
+        $appScripts = "
+                <script src=\"js/app.js\"></script>
+            ";
+
+        echo $root . $lareactScripts . $appScripts;
+        return;
     }
 }
 

@@ -8,17 +8,6 @@
     <title>Lareact</title>
 </head>
 <body>
-<div id="root">
-
-</div>
-<script>
-    function getResult (data) {
-        var stringified = JSON.stringify(data);
-        return JSON.parse(stringified);
-    }
-    window.LAREACT_DATA = getResult(@json($_data));
-    window.LAREACT_ROUTE = getResult(@json($_route));
-</script>
-<script src="js/app.js"></script>
+<?php Lareact::createHtml($_data, $_route) ?>
 </body>
 </html>
