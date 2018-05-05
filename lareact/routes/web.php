@@ -12,24 +12,37 @@
 */
 
 class Lareact {
-    public static function sendParams(array $params, string $route) {
-        return [
-            '_data' => $params,
-            '_route' => $route,
-        ];
-    }
+	public static function sendParams(array $params, string $route) {
+		return [
+			'_data' => $params,
+			'_route' => $route,
+		];
+	}
 
-    // TODO Objectify data array for usage with JS
-    public static function createHtml(array $_data, string $_route) {
-        if (!$_data || !$_route) {
-            \Illuminate\Support\Facades\App::abort(500, 'LAREACT: Invalid data mapping to generate html. see createHtml function');
-        }
+	public static function toObject(array $array, $class = 'stdClass') {
+		$object = new $class;
+		foreach ($array as $key => $value) {
+			if (is_array($value)) {
+				// Convert the array to an object
+				$value = arr::to_object($value, $class);
+			}
+			// Add the value to the object
+			$object->{$key} = $value;
+		}
+		return $object;
+	}
 
-        $dataJsonEncoded = json_encode($_data);
-        $routeJsonEncoded = json_encode($_route);
+	// TODO Objectify data array for usage with JS
+	public static function createHtml(array $_data, string $_route) {
+		if (!$_data || !$_route) {
+			\Illuminate\Support\Facades\App::abort(500, 'LAREACT: Invalid data mapping to generate html. see createHtml function');
+		}
 
-        $root = "<div id='root'></div>";
-        $lareactScripts = "
+		$dataJsonEncoded = json_encode(self::toObject($_data));
+		$routeJsonEncoded = json_encode($_route);
+
+		$root = "<div id='root'></div>";
+		$lareactScripts = "
 <script> 
 function getResult (data) {
     var stringified = JSON.stringify(data);
@@ -39,23 +52,19 @@ window.LAREACT_DATA = getResult($dataJsonEncoded);
 window.LAREACT_ROUTE = getResult($routeJsonEncoded);
 </script>
             ";
-        $appScripts = "
+		$appScripts = "
                 <script src=\"js/app.js\"></script>
             ";
 
-        echo $root . $lareactScripts . $appScripts;
-        return;
-    }
+		echo $root . $lareactScripts . $appScripts;
+		return;
+	}
 }
 
 Route::get('/', function () {
-    $hello = 'hello';
-    $world = 'worldddd';
-    $params = compact('hello', 'world');
+	$hello = 'hello';
+	$world = 'worldddd';
+	$params = compact('hello', 'world');
 
-    return view('welcome', Lareact::sendParams($params, 'Home'));
-});
-
-Route::get('/about', function () {
-    return view('welcome', Lareact::sendParams(['hello woooorld'], 'About'));
+	return view('welcome', Lareact::sendParams($params, 'Home'));
 });
