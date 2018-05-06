@@ -36,9 +36,12 @@ const Item = styled.li`
 `;
 
 const Background = styled.div`
-  position: fixed;
+  position: sticky;
   width: 100%;
-  left:0;
+  left: 0;
+  top: 0;
+  background-color: white;
+  z-index: 10;
 `;
 
 const NavItem = ({noPadding, href, title, children}) => (

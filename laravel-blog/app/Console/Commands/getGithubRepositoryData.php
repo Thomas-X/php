@@ -51,7 +51,7 @@ class getGithubRepositoryData extends Command
 		    if(count($arr) > 0) {
 			    foreach($keys as $key) {
 				    // Don't include CSS since its not a programming language. Yes.
-				    if($key !== 'CSS') {
+				    if($key !== 'CSS' && $key !== 'HTML') {
 					    if(isset($arr[$key])) {
 						    $arr[$key] += $res[$key];
 					    } else {

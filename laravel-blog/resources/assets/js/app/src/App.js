@@ -10,6 +10,7 @@ import Languages from "./components/Languages";
 
 class App extends Component {
     render() {
+        // TODO nav positioning & fancy animation for git language shower
         return (
             <Provider store={store}>
                 <section>

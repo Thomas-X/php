@@ -15,6 +15,11 @@ export const BigTitle = styled.h1`
     margin: 0;
 `;
 
+export const BigParagraph = styled.p`
+  font-size: 24px;
+  font-weight: 500;
+`;
+
 const underLineEffect = css`
   &:hover {
     color: #000;
@@ -43,7 +48,6 @@ const underLineEffect = css`
 export const Link = styled.a`
   text-decoration: none !important;
   color: #000 !important; 
-  font-weight: 100;
   ${({noEffect, noEffectResponsive}) => {
       if(noEffectResponsive) {
           return `
