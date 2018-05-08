@@ -6,6 +6,8 @@ import Languages from "../components/Languages";
 import {PageRules} from "../components/styledCopy";
 import CurrentGitStats from "../components/CurrentGitStats";
 import delay from 'timeout-as-promise';
+import {unlockAbout, unlockPortfolio} from "../redux/terminalData";
+import {connect} from "react-redux";
 
 // <section>
 //     <Section>
@@ -96,7 +98,7 @@ const TextContainer = styled.div`
   flex: 1;
 `;
 
-export default class Home extends React.Component {
+class Home extends React.Component {
 
     createTerminal() {
         // create terminal
@@ -127,6 +129,8 @@ export default class Home extends React.Component {
             }
         }
 
+        console.log('yoo');
+
         const commands = {
             http: {
                 name: 'http',
@@ -140,7 +144,8 @@ export default class Home extends React.Component {
                 name: 'curl',
                 type: 'builtin',
                 man: 'Curls something .. presumably? 1st parameter is the url to curl, no flags.',
-                fn: function curl(args) {
+                fn: (args) => {
+                    const { unlockAbout, unlockPortfolio, portfolioUnlocked, aboutUnlocked } = this.props;
                     if(args._[0] === ' ') {
                         throw new Error('HA! No spaces as url');
                     }
@@ -148,16 +153,22 @@ export default class Home extends React.Component {
                         throw new Error('Invalid amount of arguments given');
                     }
                     const url = args._[0];
+                    if(url === '/about' && aboutUnlocked === false) {
+                        unlockAbout();
+                    } else if (aboutUnlocked === true && url === '/about') {
+                        return `You want to know more about me, again?!`
+                    }
+                    if(url === '/portfolio' && portfolioUnlocked === false) {
+                        unlockPortfolio();
+                    } else if (portfolioUnlocked === true && url === '/portfolio') {
+                        return `Yea um, unlocking my portfolio multiple times doesn't really do some magic`
+                    }
 
-                    if(url === '/about') {
-                        // do some redux logic to 'unlock' about page
-                    }
-                    if(url === '/portfolio') {
-                        // do some redux logic to 'unlock' portfolio page
-                    }
+                    console.log('yoo')
 
                     return `
-                    
+
+
                     `
                 },
             },
@@ -215,3 +226,14 @@ export default class Home extends React.Component {
         );
     }
 }
+
+export default connect(
+    state => ({
+        aboutUnlocked: state.terminalData.aboutUnlocked,
+        portfolioUnlocked: state.terminalData.portfolioUnlocked,
+    }),
+    dispatch => ({
+        unlockAbout: () => dispatch(unlockAbout()),
+        unlockPortfolio: () => dispatch(unlockPortfolio())
+    })
+)(Home);

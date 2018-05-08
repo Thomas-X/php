@@ -1,6 +1,7 @@
 const path = require('path');
 module.exports = {
-    entry: path.resolve(__dirname, 'resources/assets/js/app/src/index.js'),
+    // /app/src/index.js
+    entry: path.resolve(__dirname, 'resources/assets/js/tmp.js'),
     output: {
         path: path.resolve(__dirname, './public/js'),
         filename: 'app.js'
