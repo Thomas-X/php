@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, {css} from 'styled-components';
-import {BREAKPOINTS} from "../constants";
+import {BREAKPOINTS, colors} from "../constants";
+import {stepSize} from "./ChangingListOfPerson";
 
 export const Paragraph = styled.p``;
 
@@ -10,14 +11,18 @@ export const SubTitle = styled.h2``;
 
 export const Text = styled.span``;
 
+// 1 rem = 17.3333 offset
 export const BigTitle = styled.h1`
-    font-size: 48px;
+    font-size: 3rem;
     margin: 0;
+    color: ${colors.textColor}
+    line-height: ${stepSize};
 `;
 
 export const BigParagraph = styled.p`
   font-size: 24px;
   font-weight: 500;
+  ${({ italic }) => italic ? 'font-style: italic;' : ''}
 `;
 
 const underLineEffect = css`
@@ -64,10 +69,36 @@ export const Link = styled.a`
 `;
 
 export const Page = styled.div`
-    width: 60%;
+    width: 80%;
     margin: auto;
     
-    @media screen and (max-width: ${BREAKPOINTS.sm}) {
+    @media screen and (max-width: ${BREAKPOINTS.lg}) {
+      width: 70%;
+    }
+    
+    @media screen and (max-width: ${BREAKPOINTS.md}) {
       width: 80%;
+    }
+    
+    @media screen and (max-width: ${BREAKPOINTS.sm}) {
+      width: 90%;
+    }
+`;
+
+export const PageRules = css`
+  width: 60%;
+  
+    margin: 0 auto;
+    
+    @media screen and (max-width: ${BREAKPOINTS.lg}) {
+      width: 70%;
+    }
+    
+    @media screen and (max-width: ${BREAKPOINTS.md}) {
+      width: 80%;
+    }
+    
+    @media screen and (max-width: ${BREAKPOINTS.sm}) {
+      width: 90%;
     }
 `;

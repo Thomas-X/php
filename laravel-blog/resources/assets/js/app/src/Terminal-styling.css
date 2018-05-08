@@ -1,0 +1,30 @@
+#shellContainer {
+    padding: 1rem;
+    color: #37d425;
+    font-family: Hack, 'sans-serif' !important;
+}
+
+input {
+    font-family: Hack, 'sans-serif' !important;
+    line-height: 1.5 !important;
+}
+
+.terminal-input {
+    caret-color: #37d425;
+    outline: none;
+    border: none;
+    background-color: #2B0645;
+    color: #37d425;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+/*.terminal-row {*/
+/*display:flex;*/
+/*flex-direction: row;*/
+/*flex-wrap: wrap;*/
+/*justify-content: center;*/
+/*align-items: center;*/
+/*}*/

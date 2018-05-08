@@ -5,7 +5,7 @@ import {Page} from "./styledCopy";
 
 const Container = styled.div`
   width: 100%;
-  height: 10px;
+  height: 3px;
   display:flex;
   cursor: pointer;
 `;

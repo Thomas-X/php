@@ -1,23 +1,33 @@
 import React, {Component} from 'react';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import delay from 'timeout-as-promise';
+
+// pixel perfect.. yea..
+export const stepSize = 1.2;
 
 const Container = styled.div`
   display:flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 1em;
+  height: 1.2em;
   overflow: hidden;
 `;
 
+const lineHeight = css`
+  line-height: 1.2;
+`;
+
 const Above = styled.span`
+  ${lineHeight}
 `;
 
 const Middle = styled.span`
+  ${lineHeight}
 `;
 
 const Under = styled.span`
+  ${lineHeight}
 `;
 
 const TextContainer = styled.div`
@@ -26,12 +36,14 @@ const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   // -52px to offset for 'middle' text
-  top: -52px;
+  white-space: nowrap;
+  top: -${stepSize}em;
 `;
 
 class ChangingListOfPerson extends Component {
+
     constructor(props) {
-        super(props);778
+        super(props);
         let names;
         if (!props.names) {
             names = [
@@ -45,7 +57,6 @@ class ChangingListOfPerson extends Component {
         } else {
             names = props.names
         }
-        this.stepSize = 52;
         this.state = {
             names,
             aboveName: 0,
@@ -56,9 +67,10 @@ class ChangingListOfPerson extends Component {
 
     static randomIndex(arr, notThisNumber) {
         const result = Math.floor(Math.random() * arr.length);
-        console.log(result);
-        if (notThisNumber.findIndex((r) => r !== result)) {
-            return ChangingListOfPerson.randomIndex(arr, notThisNumber);
+        for (const number of notThisNumber) {
+            if(number === result) {
+                return ChangingListOfPerson.randomIndex(arr, notThisNumber);
+            }
         }
         return result;
     };
@@ -67,7 +79,7 @@ class ChangingListOfPerson extends Component {
         setInterval(() => {
             this.cycleForward()
                 .then(() => {
-                    // Disable transition so we sneakely can reset
+                    // Disable transition so we sneakily can reset
                     this.textContainer.style.transition = 'all 0ms ease-in-out';
 
                     this.setState({
@@ -79,8 +91,8 @@ class ChangingListOfPerson extends Component {
                             .then(() => {
                                 // Set transition again
                                 this.textContainer.style.transition = 'all 600ms ease-in-out';
-                                const {aboveName, middleName, underName, names} = this.state;
-                                const currentlySelected = [aboveName, middleName, underName];
+                                const {middleName, underName, names} = this.state;
+                                const currentlySelected = [middleName, underName];
                                 // Change names
                                 this.setState({
                                     underName: ChangingListOfPerson.randomIndex(names, currentlySelected),
@@ -88,17 +100,17 @@ class ChangingListOfPerson extends Component {
                             })
                     });
                 });
-        }, 10000)
+        }, 7000)
     }
 
     reset() {
-        this.textContainer.style.top = '-' + this.stepSize + 'px';
+        this.textContainer.style.top = '-' + stepSize + 'em';
     }
 
     cycleForward() {
         // Can't be bothered to edit babel config to support fields etc.
         return (async () => {
-            this.textContainer.style.top = '-' + this.stepSize * 2 + 'px';
+            this.textContainer.style.top = '-' + stepSize * 2 + 'em';
             return delay(1500);
         })();
     };
@@ -108,9 +120,9 @@ class ChangingListOfPerson extends Component {
         return (
             <Container>
                 <TextContainer innerRef={(ref) => this.textContainer = ref}>
-                    <Above innerRef={(ref) => this.above = ref}>{names[aboveName]}</Above>
-                    <Middle innerRef={(ref) => this.middle = ref}>{names[middleName]}</Middle>
-                    <Under innerRef={(ref) => this.under = ref}>{names[underName]}</Under>
+                    <Above>{names[aboveName]}</Above>
+                    <Middle>{names[middleName]}</Middle>
+                    <Under>{names[underName]}</Under>
                 </TextContainer>
             </Container>
         );

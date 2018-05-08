@@ -6,6 +6,9 @@ import {persistStore} from "redux-persist";
 import injectGlobalCss from "./injectGlobalCss";
 import { store } from './createStore';
 
+// Terminal styling
+import './Terminal-styling.css';
+
 // only show app when persisted
 persistStore(store, {}, () => {
     injectGlobalCss();
